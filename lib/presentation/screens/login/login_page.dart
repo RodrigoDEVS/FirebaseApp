@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_app/domain/bloc/login_bloc/login_bloc.dart';
+import 'package:flutter_bloc_app/domain/controller/auth_controller/login_controller.dart';
 import 'package:flutter_bloc_app/presentation/screens/login/widgets/default_icon_button.dart';
 import 'package:flutter_bloc_app/presentation/screens/register/register_page.dart';
 import 'package:flutter_bloc_app/presentation/widgets/default_textformfield.dart';
@@ -61,17 +62,24 @@ class _LoginPageState extends State<LoginPage> {
                         DefaultTextFormField(
                             hintText: "Email",
                             prefixIcon: Icons.email,
-                            textEditingController: emailEditingController),
+                            textEditingController: emailEditingController,
+                            onChanged: (value) =>
+                                bloc.add(EmailChanged(email: value))),
                         const SizedBox(height: 20),
                         const Text("Contraseña:"),
                         DefaultTextFormField(
-                            hintText: "Contraseña",
-                            prefixIcon: Icons.person,
-                            suffixIcon: Icons.remove_red_eye,
-                            obscureText: state.showPassword,
-                            showPass: () => bloc.add(ShowPassword(
-                                showPassword: !state.showPassword)),
-                            textEditingController: passwordEditingController),
+                          hintText: "Contraseña",
+                          prefixIcon: Icons.person,
+                          suffixIcon: state.showPassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          obscureText: state.showPassword,
+                          showPass: () => bloc.add(
+                              ShowPassword(showPassword: !state.showPassword)),
+                          textEditingController: passwordEditingController,
+                          onChanged: (value) =>
+                              bloc.add(PasswordChanged(password: value)),
+                        ),
                         Container(
                           alignment: Alignment.center,
                           margin: const EdgeInsets.only(top: 50, bottom: 40),
@@ -79,11 +87,10 @@ class _LoginPageState extends State<LoginPage> {
                             width: size.width * 0.8,
                             child: ElevatedButton(
                                 onPressed: () {
-                                  bloc.add(EmailChanged(
-                                      email: emailEditingController.text));
-                                  bloc.add(PasswordChanged(
-                                      password:
-                                          passwordEditingController.text));
+                                  LoginController(context: context)
+                                      .handleSignIn('email');
+                                  print('usuario: ${state.username}');
+                                  print('password: ${state.password}');
                                 },
                                 child: const Text("Login")),
                           ),

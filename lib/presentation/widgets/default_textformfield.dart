@@ -6,6 +6,7 @@ class DefaultTextFormField extends StatelessWidget {
   final IconData? suffixIcon;
   final bool? obscureText;
   final Function()? showPass;
+  final Function(String value)? onChanged;
   final TextEditingController textEditingController;
 
   const DefaultTextFormField(
@@ -15,7 +16,8 @@ class DefaultTextFormField extends StatelessWidget {
       required this.textEditingController,
       this.obscureText,
       this.suffixIcon,
-      this.showPass});
+      this.showPass,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class DefaultTextFormField extends StatelessWidget {
           hintText: hintText,
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)))),
-      onChanged: (value) {},
+      onChanged: onChanged,
     );
   }
 }

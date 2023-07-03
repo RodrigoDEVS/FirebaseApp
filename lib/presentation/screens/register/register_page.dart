@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_app/domain/bloc/register_bloc/register_bloc.dart';
+import 'package:flutter_bloc_app/domain/controller/auth_controller/register_controller.dart';
 import 'package:flutter_bloc_app/presentation/widgets/default_textformfield.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -38,34 +39,46 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     const Text("Email:"),
                     DefaultTextFormField(
-                        hintText: "Email",
-                        prefixIcon: Icons.email,
-                        textEditingController: emailEditingController),
+                      hintText: "Email",
+                      prefixIcon: Icons.email,
+                      textEditingController: emailEditingController,
+                      onChanged: (value) =>
+                          bloc.add(EmailChanged(email: value)),
+                    ),
                     const SizedBox(height: 20),
                     const Text("Contraseña:"),
                     DefaultTextFormField(
-                        hintText: "Contraseña",
-                        prefixIcon: Icons.person,
-                        suffixIcon: Icons.remove_red_eye,
-                        obscureText: state.showPassword,
-                        showPass: () {
-                          bloc.add(
-                              ShowPassword(showPassword: state.showPassword));
-                        },
-                        textEditingController: passwordEditingController),
+                      hintText: "Contraseña",
+                      prefixIcon: Icons.person,
+                      suffixIcon: state.showPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      obscureText: state.showPassword,
+                      showPass: () {
+                        bloc.add(
+                            ShowPassword(showPassword: state.showPassword));
+                      },
+                      textEditingController: passwordEditingController,
+                      onChanged: (value) =>
+                          bloc.add(PasswordChanged(password: value)),
+                    ),
                     const SizedBox(height: 20),
                     const Text("Confirmar Contraseña:"),
                     DefaultTextFormField(
-                        hintText: "Contraseña",
-                        prefixIcon: Icons.person,
-                        suffixIcon: Icons.remove_red_eye,
-                        obscureText: state.showConfirmPassword,
-                        showPass: () {
-                          bloc.add(ShowConfirmPassword(
-                              showConfirmPassword: state.showConfirmPassword));
-                        },
-                        textEditingController:
-                            confirmPasswordEditingController),
+                      hintText: "Contraseña",
+                      prefixIcon: Icons.person,
+                      suffixIcon: state.showConfirmPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      obscureText: state.showConfirmPassword,
+                      showPass: () {
+                        bloc.add(ShowConfirmPassword(
+                            showConfirmPassword: state.showConfirmPassword));
+                      },
+                      textEditingController: confirmPasswordEditingController,
+                      onChanged: (value) => bloc
+                          .add(ConfirmPasswordChanged(confirmPassword: value)),
+                    ),
                     Container(
                       alignment: Alignment.center,
                       margin: const EdgeInsets.only(top: 50, bottom: 10),
@@ -73,9 +86,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         width: size.width * 0.8,
                         child: ElevatedButton(
                             onPressed: () {
-                              print('email: ${emailEditingController.text}');
+                              print('email: ${state.email}');
+                              print('contraseña: ${state.password}');
                               print(
-                                  'contraseña: ${passwordEditingController.text}');
+                                  'Contraseña Registrada: ${state.confirmPassword}');
+                              RegisterController(context: context)
+                                  .handleRegister();
                             },
                             child: const Text("Registrarse")),
                       ),

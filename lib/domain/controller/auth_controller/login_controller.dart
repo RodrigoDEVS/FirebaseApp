@@ -31,11 +31,25 @@ class LoginController {
 
           if (user != null) {
             //usuario verificado en Firebase
+            print('logueado correctamente');
           } else {
             //error al obtener el usuario de Firebase
           }
-        } catch (e) {
-          print(e);
+        } on FirebaseAuthException catch (e) {
+          print('el error: ${e.code}');
+          if (e.code == 'user-not-found') {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('El usuario no existe')));
+          } else if (e.code == 'wrong-password') {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Password incorrecto')));
+          } else if (e.code == 'invalid-email') {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(content: Text('Correo Inválido')));
+          } else if (e.code == 'user-disabled') {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Usuario Inactivo')));
+          }
         }
       }
     } catch (e) {

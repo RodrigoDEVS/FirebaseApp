@@ -38,7 +38,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         context,
                         "Siguiente",
                         "Aprender",
-                        "Texto explicativo: bienvenido a nuestra aplicación flutter bloc app, aquí podras entregar el uso del patrón BLoC.",
+                        "Texto explicativo: bienvenido a nuestra aplicación flutter bloc, se implementó el uso del patrón BLoC.",
                         "assets/images/reading.png",
                         size),
                     _page(
