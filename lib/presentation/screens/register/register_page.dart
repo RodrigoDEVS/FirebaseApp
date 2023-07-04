@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_app/domain/bloc/register_bloc/register_bloc.dart';
-import 'package:flutter_bloc_app/domain/controller/auth_controller/register_controller.dart';
+import 'package:flutter_bloc_app/domain/repository/register_repository.dart';
 import 'package:flutter_bloc_app/presentation/widgets/default_textformfield.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -90,7 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               print('contraseña: ${state.password}');
                               print(
                                   'Contraseña Registrada: ${state.confirmPassword}');
-                              RegisterController(context: context)
+                              RegisterRepository(context: context)
                                   .handleRegister();
                             },
                             child: const Text("Registrarse")),

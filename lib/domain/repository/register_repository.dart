@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_app/domain/bloc/register_bloc/register_bloc.dart';
 
-class RegisterController {
+class RegisterRepository {
   final BuildContext context;
 
-  RegisterController({required this.context});
+  RegisterRepository({required this.context});
 
   Future<void> handleRegister() async {
     final state = context.read<RegisterBloc>().state;

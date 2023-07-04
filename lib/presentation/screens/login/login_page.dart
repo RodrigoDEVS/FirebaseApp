@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_app/domain/bloc/login_bloc/login_bloc.dart';
-import 'package:flutter_bloc_app/domain/controller/auth_controller/login_controller.dart';
+import 'package:flutter_bloc_app/domain/repository/login_repository.dart';
 import 'package:flutter_bloc_app/presentation/screens/login/widgets/default_icon_button.dart';
 import 'package:flutter_bloc_app/presentation/screens/register/register_page.dart';
 import 'package:flutter_bloc_app/presentation/widgets/default_textformfield.dart';
@@ -87,10 +87,8 @@ class _LoginPageState extends State<LoginPage> {
                             width: size.width * 0.8,
                             child: ElevatedButton(
                                 onPressed: () {
-                                  LoginController(context: context)
+                                  LoginRepository(context: context)
                                       .handleSignIn('email');
-                                  print('usuario: ${state.username}');
-                                  print('password: ${state.password}');
                                 },
                                 child: const Text("Login")),
                           ),
