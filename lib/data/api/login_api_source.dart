@@ -7,7 +7,7 @@ class LoginApiSource {
 
   LoginApiSource(this.context);
 
-  Future<void> signIn(LoginModel loginModel) async {
+  Future signIn(LoginModel loginModel) async {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: loginModel.email!, password: loginModel.password!);
@@ -18,7 +18,6 @@ class LoginApiSource {
 
       if (user != null) {
         //usuario verificado en Firebase
-        print('logueado correctamente');
       } else {
         //error al obtener el usuario de Firebase
       }

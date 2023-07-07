@@ -9,7 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'domain/bloc/welcome_bloc/welcome_bloc.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
