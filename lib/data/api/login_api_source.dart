@@ -11,12 +11,17 @@ class LoginApiSource {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: loginModel.email!, password: loginModel.password!);
-      if (credential.user == null) {}
-      if (!credential.user!.emailVerified) {}
+      if (credential.user == null) {
+        print('Error en el login');
+      }
+      if (!credential.user!.emailVerified) {
+        print('aun no has verificado el correo');
+      }
 
       var user = credential.user;
 
       if (user != null) {
+        print('te has logueado con éxito');
         //usuario verificado en Firebase
       } else {
         //error al obtener el usuario de Firebase
