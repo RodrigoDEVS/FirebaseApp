@@ -22,6 +22,7 @@ class LoginApiSource {
 
       if (user != null) {
         print('te has logueado con éxito');
+        return user;
         //usuario verificado en Firebase
       } else {
         //error al obtener el usuario de Firebase

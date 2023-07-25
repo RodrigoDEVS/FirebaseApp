@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_app/domain/bloc/login_bloc/login_bloc.dart';
 import 'package:flutter_bloc_app/domain/bloc/register_bloc/register_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_bloc_app/presentation/screens/welcome/welcome_page.dart'
 import 'package:flutter_bloc_app/presentation/theme/app_theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bloc_app/presentation/widgets/splash_screen.dart';
 
 import 'domain/bloc/welcome_bloc/welcome_bloc.dart';
 
@@ -13,6 +15,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
+
+  var user = FirebaseAuth.instance.currentUser;
+
+  print(user?.email);
 
   runApp(const MyApp());
 }
@@ -33,7 +39,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: AppTheme().getTheme(),
-        home: const WelcomePage(),
+        home: const SplashScreen(),
         routes: {
           "loginPage": (context) => const LoginPage(),
         },

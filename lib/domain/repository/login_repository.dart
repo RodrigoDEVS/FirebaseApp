@@ -21,7 +21,8 @@ class LoginRepository {
         if (loginModel.password!.isEmpty) {
           throw Exception('Password is empty');
         }
-        await LoginApiSource(context).signIn(loginModel);
+        var response = await LoginApiSource(context).signIn(loginModel);
+        return response;
       }
     } catch (e) {
       print(e);

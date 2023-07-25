@@ -6,7 +6,7 @@ class LoginUseCase {
 
   LoginUseCase(this.context);
 
-  Future logIn(String email) async {
-    return LoginRepository(context: context).handleSignIn(email);
+  Future logIn(String loginType) async {
+    return LoginRepository(context: context).handleSignIn(loginType);
   }
 }

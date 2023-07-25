@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_app/domain/bloc/login_bloc/login_bloc.dart';
 import 'package:flutter_bloc_app/domain/repository/login_repository.dart';
 import 'package:flutter_bloc_app/domain/use_case/login_use_case.dart';
+import 'package:flutter_bloc_app/presentation/screens/home/home_page.dart';
 import 'package:flutter_bloc_app/presentation/screens/login/widgets/default_icon_button.dart';
 import 'package:flutter_bloc_app/presentation/screens/register/register_page.dart';
 import 'package:flutter_bloc_app/presentation/widgets/default_textformfield.dart';
@@ -88,7 +89,19 @@ class _LoginPageState extends State<LoginPage> {
                             width: size.width * 0.8,
                             child: ElevatedButton(
                                 onPressed: () {
-                                  LoginUseCase(context).logIn('email');
+                                  LoginUseCase(context)
+                                      .logIn('email')
+                                      .then((value) => {
+                                            if (value != null)
+                                              {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          const HomePage()),
+                                                )
+                                              }
+                                          });
                                 },
                                 child: const Text("Login")),
                           ),
